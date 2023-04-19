@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>Casa de cambio</title>
+</head>
+<body>
+    <style>
+        h1 {
+            color: rgb(0, 0, 0);
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            color: rgb(0, 0, 0);
+        }
+        .boton {
+            border: 1px solid #2e518b; 
+            padding: 10px;
+            background-color: #2e518b;
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'Helvetica', sans-serif;
+            border-radius: 50px;
+        }
+    </style>
+	<h1>Casa de cambio</h1>
+	<form>
+		<label for="de">Cambiar de:</label>
+		<select id="de" name="de">
+			<option value="USD">Dólar</option>
+			<option value="PEN">Soles</option>
+			<option value="EUR">Euro</option>
+		</select>
+        <br><br/>
+		<label for="a">Cambiar a:</label>
+		<select id="a" name="a">
+			<option value="USD">Dólar</option>
+			<option value="PEN">Soles</option>
+			<option value="EUR">Euro</option>
+		</select>
+        <br><br/>
+        <label for="fname">Monto:</label>
+        <input type="text" id="fname">
+        <br><br/>
+		<input type="button" class="boton" value="Cotizar" onclick="calcular()">
+	</form>
+	<script>
+		function calcular() {
+
+			var de = document.getElementById("de").value;
+			var a = document.getElementById("a").value;
+			var tasa = obtenerTasaDeCambio(de, a);
+			var monto = document.getElementById("fname").value;
+			var total = monto * tasa;
+			alert("Total a recibir: " + total.toFixed(2) + " " + a);
+		}
+
+		function obtenerTasaDeCambio(de, a) {
+			var tasa = {
+				"USD": {"USD": 1.00, "PEN": 3.78, "EUR": 0.91},
+				"PEN": {"USD": 0.26, "PEN": 1.00, "EUR": 0.24},
+				"EUR": {"USD": 1.10, "PEN": 4.14, "EUR": 1.00}
+			};
+			return tasa[de][a];
+		}
+	</script>
+</body>
+</html>
